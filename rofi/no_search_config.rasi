@@ -1,0 +1,26 @@
+/* NoSearch Layout */
+@import "base.rasi"
+
+mainbox {
+    children:                    [ "listview" ];
+}
+
+inputbar {
+    enabled:                     false;
+}
+
+listview {
+    enabled:                     true;
+    columns:                     1;
+    lines:                       6;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    fixed-height:                false;
+    fixed-columns:               true;
+}
+
+element {
+    padding:                     10px 16px;
+}

@@ -1,0 +1,6 @@
+*.bak
+libreoffice/4/cache/
+libreoffice/4/user/uno_packages/cache/
+waybar/bak/
+waybar/theme/state
+waybar/theme/.toggle.lock

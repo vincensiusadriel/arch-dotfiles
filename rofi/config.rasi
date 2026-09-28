@@ -1,0 +1,39 @@
+/* Config Layout */
+@import "base.rasi"
+
+configuration {
+    show-icons:                  true;
+}
+
+entry {
+    placeholder:                 "Search...";
+}
+
+listview {
+    enabled:                     true;
+    columns:                     1;
+    lines:                       8;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    reverse:                     false;
+    fixed-height:                false;
+    fixed-columns:               true;
+}
+
+element {
+    padding:                     8px 15px;
+    spacing:                     15px;
+    orientation:                 horizontal;
+}
+
+element-icon {
+    enabled:                     true;
+    size:                        24px;
+}
+
+element-text {
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+}

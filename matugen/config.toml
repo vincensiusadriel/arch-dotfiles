@@ -1,0 +1,98 @@
+[config]
+# mode = "dark"
+type = "scheme-tonal-spot"
+prefer = "darkness"
+
+[config.wallpaper]
+command = "awww img --transition-type grow --transition-step 90 --transition-fps 60 {{image}}"
+set = true
+
+# =============================================================================
+# 1. GTK, Qt & Core Theming
+# =============================================================================
+
+
+[templates.gtk3]
+input_path  = '~/.config/matugen/templates/gtk3-colors.css'
+output_path = '~/.config/matugen/generated/gtk-3.css'
+post_hook   = '''
+  ln -nfs "$HOME/.config/matugen/generated/gtk-3.css" "$HOME/.config/gtk-3.0/gtk.css"
+  gsettings set org.gnome.desktop.interface gtk-theme "Adwaita" || :
+  gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark" || :
+'''
+
+[templates.gtk4]
+input_path  = '~/.config/matugen/templates/gtk4-colors.css'
+output_path = '~/.config/matugen/generated/gtk-4.css'
+post_hook   = '''
+  ln -nfs "$HOME/.config/matugen/generated/gtk-4.css" "$HOME/.config/gtk-4.0/gtk.css"
+  ln -nfs "/usr/share/themes/adw-gtk3-dark/gtk-4.0/libadwaita.css" "$HOME/.config/gtk-4.0/libadwaita.css"
+  ln -nfs "/usr/share/themes/adw-gtk3-dark/gtk-4.0/libadwaita-tweaks.css" "$HOME/.config/gtk-4.0/libadwaita-tweaks.css"
+'''
+
+[templates.icon_theme]
+input_path  = '/dev/null'
+output_path = '/dev/null'
+post_hook   = '''
+  gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark" || :
+'''
+
+[templates.qt5ct]
+input_path  = '~/.config/matugen/templates/qtct-colors.conf'
+output_path = '~/.config/matugen/generated/qt5ct-colors.conf'
+post_hook   = '''
+  mkdir -p "$HOME/.config/qt5ct/colors"
+  ln -nfs "$HOME/.config/matugen/generated/qt5ct-colors.conf" "$HOME/.config/qt5ct/colors/matugen.conf"
+'''
+
+[templates.qt6ct]
+input_path  = '~/.config/matugen/templates/qtct-colors.conf'
+output_path = '~/.config/matugen/generated/qt6ct-colors.conf'
+post_hook   = '''
+  mkdir -p "$HOME/.config/qt6ct/colors"
+  ln -nfs "$HOME/.config/matugen/generated/qt6ct-colors.conf" "$HOME/.config/qt6ct/colors/matugen.conf"
+'''
+
+# =============================================================================
+# 2. System Components (Wayland, Bars, Notifications)
+# =============================================================================
+
+[templates.waybar]
+input_path  = '~/.config/matugen/templates/colors.css'
+output_path = '~/.config/matugen/generated/waybar-colors.css'
+post_hook   = '''
+  pkill -USR2 -x waybar || :
+'''
+
+[templates.rofi]
+input_path  = '~/.config/matugen/templates/rofi-colors.rasi'
+output_path = '~/.config/matugen/generated/rofi-colors.rasi'
+
+[templates.mako]
+input_path  = '~/.config/matugen/templates/mako.ini'
+output_path = '~/.config/matugen/generated/mako.ini'
+post_hook   = '''
+  makoctl reload || :
+'''
+
+[templates.hyprland]
+input_path  = '~/.config/matugen/templates/hyprland-colors.lua'
+output_path = '~/.config/matugen/generated/hyprland-colors.lua'
+post_hook   = 'hyprctl reload config-only || :'
+
+[templates.hyprlock]
+input_path  = '~/.config/matugen/templates/hyprlock-colors.conf'
+output_path = '~/.config/matugen/generated/hyprlock-colors.conf'
+
+
+# =============================================================================
+# 3. Applications (Terminals, Editors, Browsers)
+# =============================================================================
+
+[templates.kitty]
+input_path  = '~/.config/matugen/templates/kitty-colors.conf'
+output_path = '~/.config/matugen/generated/kitty-colors.conf'
+post_hook   = '''
+  ln -nfs "$HOME/.config/matugen/generated/kitty-colors.conf" "$HOME/.config/kitty/kitty-colors.conf"
+  pkill -SIGUSR1 -x kitty || :
+'''
