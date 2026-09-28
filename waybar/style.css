@@ -35,7 +35,7 @@
    RESET & BASE - COMPACT
    ═══════════════════════════════════════════════════════════════════════════ */
 * {
-    font-family: "JetBrains Mono Nerd Font Propo", "JetBrainsMono Nerd Font", "JetBrains Mono NF", "JetBrains Mono", "Symbols Nerd Font", sans-serif;
+    font-family: "JetBrainsMono Nerd Font Propo", "JetBrains Mono Nerd Font Propo", "JetBrainsMono Nerd Font", "JetBrains Mono NF", "JetBrains Mono", sans-serif;
     font-size: 16px;
     font-weight: 500;
     min-height: 0;
