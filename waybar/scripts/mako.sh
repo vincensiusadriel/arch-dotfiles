@@ -12,7 +12,7 @@ for arg in "$@"; do
             if systemctl --user is-active --quiet mako.service; then
                 systemctl --user restart mako.service
             else
-                pkill -x mako && dusky-run -- mako &
+                pkill -x mako && mako &
             fi
  
             exit 0
@@ -56,9 +56,7 @@ jq -c -n \
 
     # SAFELY define all the apps and modules we want to ignore
     def is_ignored:
-        . == "OSD" or . == "dusky-keys" or . == "dusky-cava" or . == "dusky-cava-alert" or 
-        . == "dusky-glance-narrow" or . == "dusky-glance-wide" or . == "dusky-glance-timer" or 
-        . == "dusky-glance-alert" or . == "Spotify";
+        . == "OSD" or . == "Spotify";
         
     # Helper for vertical alignment centering
     def pad3:

@@ -54,11 +54,14 @@ run_user() { # run_user <cmd...> : as the real user, never as root
         run "$@"
     fi
 }
-run_user_bash() {
+run_user_bash() { # run_user_bash <string> : as the real user, with the session environment
+    local snippet='export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/'"$uid"'"}; '
+    snippet+='export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/'"$uid"'/bus}"; '"$*"
     if [ "$(id -u)" = 0 ]; then
-        if [ "$DRY_RUN" = 1 ]; then printf '[dry-run] sudo -u %s -H -- %s\n' "$user" "$*"; else sudo -u "$user" -H -- bash -c "$*"; fi
+        if [ "$DRY_RUN" = 1 ]; then printf '[dry-run] sudo -u %s -H -- %s\n' "$user" "$*"
+        else sudo -u "$user" -H -- bash -c "$snippet"; fi
     else
-        run_bash "$*"
+        run_bash "$snippet"
     fi
 }
 
@@ -160,10 +163,25 @@ if [ "$DO_CONFIG" = 1 ]; then
     step "Linking ~/.config entries to this repo"
     run_user "$repo/install.sh"
 
+    # The rofi/waybar/gtk/mako themes all read matugen/generated/*, which is
+    # gitignored - regenerate it so a fresh clone isn't left unstyled.
+    gen="$home/.config/matugen/generated"
+    if [ -e "$gen/rofi-colors.rasi" ] && [ -e "$gen/waybar-colors.css" ]; then
+        step "Generated theme colors already present - left alone"
+    else
+        step "Generating theme colors with matugen"
+        run_user_bash 'wal="$(awww query 2>/dev/null | sed -n "s/.*currently displaying: image: //p" | head -n1)"
+            if [ -n "$wal" ] && [ -f "$wal" ]; then
+                echo "    wallpaper: $wal"
+                matugen image "$wal" || echo "    matugen failed - check awww/matugen" >&2
+            else
+                echo "    no wallpaper set - pick one with Super+W to generate colors" >&2
+            fi'
+    fi
+
     if [ "$DRY_RUN" = 0 ] && [ -S "/run/user/$uid/bus" ]; then
-        step "Syncing GSettings font (source of truth for GTK) "
-        run_user_bash 'export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/'"$uid"'/bus
-            gsettings set org.gnome.desktop.interface font-name "JetBrainsMono Nerd Font Propo 10" || true
+        step "Syncing GSettings font/theme (source of truth for GTK)"
+        run_user_bash 'gsettings set org.gnome.desktop.interface font-name "JetBrainsMono Nerd Font Propo 10" || true
             gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark" || true
             gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark" || true'
     elif [ "$DRY_RUN" = 1 ]; then
@@ -183,6 +201,6 @@ cat <<EOF
           echo 'options snd_hda_intel jackpoll_ms=20' | sudo tee /etc/modprobe.d/mute-led.conf
         then reboot; if it misbehaves remove the file.
       * check monitor layout:  hyprctl monitors all
-      * wallhaven/matugen wallpaper seeding (see ~/awww-matugen-setup-plan.md)
+      * pick a wallpaper (Super+W) if none is set yet - it seeds the colors
       * reboot to log in through ly@tty2
 EOF

@@ -67,8 +67,6 @@
         "format": "󰌽",
         "tooltip-format": "App Launcher\n\nLMB: Application Launcher",
         "on-click": "rofi -show drun -show-icons"
-        // "on-click-middle": "gdbus call --session --dest org.dusky.quickpanal --object-path /org/dusky/quickpanal --method org.freedesktop.Application.Activate '{}'",
-        // "on-click": "python3 ~/user_scripts/dusky_system/control_center/dusky_control_center.py"
     },
 
     "hyprland/workspaces": {
@@ -163,8 +161,6 @@
             "on-scroll-up": "shift_up",
             "on-scroll-down": "shift_down"
         },
-        // "on-click": "dusky-run gnome-clocks",
-        // "on-click-middle": "dusky-run kitty --class peaclock -e peaclock"
     },
 
     "group/updates-drawer": {
@@ -184,17 +180,14 @@
     // "custom/updates-trigger": {
     //     "format": "",
     //     "exec": "echo ''",
-    //     "exec-if": "grep -q '\"class\":\"pending\"' ~/.config/dusky/settings/waybar_update_counter_h 2>/dev/null",
     //     "interval": 5,
     //     "tooltip": false
     // },
 
     // "custom/updates": {
-    //     "exec": "tail -F ~/.config/dusky/settings/waybar_update_counter_h 2>/dev/null",
     //     "return-type": "json",
     //     "format": "{}",
     //     "tooltip": true,
-    //     "on-click": "dusky-run kitty --class system_update.sh --hold -e ~/user_scripts/update_dusky/system_update.sh --all"
     // },
 
     "privacy": {
@@ -215,7 +208,6 @@
         "format": "󰍛 {usage}%",
         "interval": 2,
         "on-click": "kitty --class htop -e htop",
-        // "on-click-right": "dusky-run kitty --class sysbench_benchmark.py -e $HOME/user_scripts/performance/sysbench_benchmark.py",
         "tooltip-format": "CPU Usage: {usage}%\nAvg Frequency: {avg_frequency} GHz\n\nLMB: htop",
         "states": {
             "warning": 60,
@@ -227,7 +219,6 @@
         "format": " {percentage}%",
         "format-alt": " {used:0.1f}G",
         "interval": 3,
-        // "on-click-right": "dusky-run kitty --class io_monitor.sh -e $HOME/user_scripts/drives/io_monitor.sh",
         "tooltip-format": "RAM: {used:0.2f} GiB / {total:0.2f} GiB ({percentage}%)\nAvailable: {avail:0.2f} GiB\nSwap: {swapUsed:0.2f} GiB / {swapTotal:0.2f} GiB",
         "states": {
             "warning": 70,
@@ -267,9 +258,6 @@
         "format": "{icon} {percent}%",
         "format-icons": ["󰃞", "󰃟", "󰃠"],
         "tooltip-format": "Brightness: {percent}%\n\nScroll: Adjust",
-        // "on-click": "dusky-run ~/user_scripts/dusky_system/quickpanal/dusky_quickpanal.py",
-        // "on-click-right": "dusky-run ~/user_scripts/dusky_system/quickpanal/dusky_quickpanal.py",
-        // "on-click-middle": "dusky-run ~/user_scripts/rofi/shader_menu.sh",
         "on-scroll-up": "brightnessctl set +5%",
         "on-scroll-down": "brightnessctl set 5%-",
         "interval": 60
@@ -323,7 +311,6 @@
             "default": ["󰕿", "󰖀", "󰕾"]
         },
         "on-click": "pavucontrol",
-        // "on-click-right": "dusky-run kitty --class cava -e cava",
         "on-click-middle": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
         "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
@@ -347,7 +334,6 @@
             "critical": 15
         },
         "tooltip-format": "{timeTo}\nHealth: {health}%\nPower Draw: {power:.2f} W\nCycles: {cycles}\n\nLMB: Toggle Format",
-        // "on-click-right": "dusky-run kitty --class dusky_hypridle.sh -e $HOME/user_scripts/hypridle/dusky_hypridle.sh"
     },
 
     // ===================================================================
@@ -366,7 +352,6 @@
         "return-type": "json",
         "interval": 5,
         "signal": 9,
-        // "on-click": "dusky-run ~/user_scripts/waybar/toggle_hypridle.sh",
         "escape": true
     },
 
@@ -392,7 +377,6 @@
     "custom/power": {
         "format": "⏻",
         "tooltip-format": "Power Menu\n\nLMB: Wlogout\nRMB: Lock Screen",
-        // "on-click": "dusky-run ~/user_scripts/wlogout/wlogout_scale.sh",
         "on-click-right": "hyprlock"
     }
 }
