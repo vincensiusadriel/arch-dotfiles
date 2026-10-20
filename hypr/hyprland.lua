@@ -276,9 +276,10 @@ hl.device({
 ---- KEYBINDINGS ----
 ---------------------
 
-local mainMod = "SUPER"           -- Sets "Windows" key as main modifier
-local secondMod = "SUPER + SHIFT" -- Sets "Windows" key as main modifier
-local thirdMod = "SUPER + ALT"    -- Sets "Windows" key as main modifier
+local mainMod = "SUPER"                -- Sets "Windows" key as main modifier
+local secondMod = "SUPER + SHIFT"      -- Sets "Windows" key as main modifier
+local thirdMod = "SUPER + ALT"         -- Sets "Windows" key as main modifier
+local forthMod = "SUPER + SHIFT + ALT" -- Sets "Windows" key as main modifier
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
@@ -294,6 +295,7 @@ hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(launcher))
 hl.bind(secondMod .. " + Space", hl.dsp.exec_cmd(runner))
 hl.bind(secondMod .. " + V", hl.dsp.exec_cmd(cliphist))
 hl.bind(secondMod .. " + N", hl.dsp.exec_cmd("~/.config/rofi/scripts/wifi_menu.sh"))      -- [desc: Network Manager]
+hl.bind(forthMod .. " + N", hl.dsp.exec_cmd("kitty --class nmtui -e nmtui"))              -- [desc: Network Manager]
 hl.bind(secondMod .. " + M", hl.dsp.exec_cmd("~/.config/rofi/scripts/mako_menu.sh"))      -- [desc: Network Manager]
 hl.bind(secondMod .. " + W", hl.dsp.exec_cmd("~/.config/rofi/scripts/wallpaper_menu.sh")) -- [desc: Wallpaper Menu]
 hl.bind(secondMod .. " + P", hl.dsp.exec_cmd("~/.config/rofi/scripts/power_menu.sh"))     -- [desc: Power Menu]
