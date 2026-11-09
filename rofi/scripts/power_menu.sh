@@ -7,7 +7,7 @@ dir="$HOME/.config/rofi"
 [ ! -d "$dir" ] && dir="$(dirname "$(readlink -f "$0")")/.."
 rofi_cmd="rofi -dmenu -i -p Power -theme $dir/no_search_config.rasi"
 
-actions="󰐥 Poweroff\n󰜉 Reboot\n󰤄 Suspend\n󰈆 Logout\n󱎫 Poweroff Timer"
+actions="󰐥 Poweroff\n󰜉 Reboot\n󰤄 Suspend\n⚿ Lock\n󰈆 Logout\n󱎫 Poweroff Timer"
 
 show_timer_menu() {
     printf "󱎫  5 mins\n󱎫  10 mins\n󱎫  15 mins\n󱎫  30 mins\n󱎫  45 mins\n󱎫  1 hr" | $rofi_cmd
@@ -19,6 +19,7 @@ case "$selection" in
     *Poweroff) systemctl poweroff ;;
     *Reboot)   systemctl reboot ;;
     *Suspend)  systemctl suspend ;;
+    *Lock)     hyprlock ;;
     *Logout)   command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()' ;;
     *"Poweroff Timer")
         timer_choice=$(show_timer_menu)
